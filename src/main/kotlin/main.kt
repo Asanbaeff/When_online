@@ -1,6 +1,6 @@
 fun main() {
     val user = "Елена"
-    val time = 60 * 60 * 23
+    val time = 60 * 11
     val text = agoToText(time)
     println("$user был(а) $text")
 }
@@ -18,16 +18,19 @@ fun agoToText(time: Int): String {
 }
 
 fun timeToTextMinute(time: Int): String {
-    if (time / 60 == 1 || (time / 60) % 10 == 1) return (time / 60).toString() + " минуту назад"
-    if (time / 60 == 2 || (time / 60) % 10 == 2
-        || time / 60 == 3 || (time / 60) % 10 == 3
-        || time / 60 == 4 || (time / 60) % 10 == 4
-    ) return (time / 60).toString() + " минуты назад"
-    return (time / 60).toString() + " минут назад"
+    val result = time / 60
+    if (result % 10 == 1 && result % 100 != 11) return "$result минуту назад"
+    if (result % 100 in 11..14) return "$result минут назад"
+    if (result % 10 == 2
+        || result % 10 == 3
+        || result % 10 == 4
+    ) return "$result минуты назад"
+    return "$result минут назад"
 }
 
 fun timeToTextHour(time: Int): String {
-    if (time / 3600 == 1 || time / 3600 == 21) return (time / 3600).toString() + " час назад"
-    if (time / 3600 in 5..20) return (time / 3600).toString() + " часов назад"
-    return (time / 3600).toString() + " часа назад"
+    val result = time / 3600
+    if (result == 21) return "$result час назад"
+    if (result in 5..20) return "$result часов назад"
+    return "$result часа назад"
 }
